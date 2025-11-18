@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 04 May 2025
- * Time: 4:15 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React, {useState} from 'react';
 import {Flex, Upload} from 'antd';
 import {BODY_BGC} from "../../constant/ColorConstant.js";

@@ -1,10 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 28 Apr 2025
- * Time: 12:29 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
 import {GREEN_COLOR, INACTIVE_COLOR, PENDING_COLOR, PRIMARY_COLOR, RED_COLOR} from "./ColorConstant.js";
 
 export const EMAILS_STATUS_COLOR_MAP = {

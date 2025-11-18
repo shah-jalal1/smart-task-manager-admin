@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 22 Apr 2025
- * Time: 4:29 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Button} from "antd";
 

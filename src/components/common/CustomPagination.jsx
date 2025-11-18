@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 22 Apr 2025
- * Time: 3:22 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Divider, Pagination} from "antd";
 import {getIcon} from "../Icons.jsx";

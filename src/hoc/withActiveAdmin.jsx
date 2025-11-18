@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 30 Apr 2025
- * Time: 2:15 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import {Navigate} from "react-router-dom";
 import {LOGIN_PATH} from "../routes/Slug.js";
 import LoadingSuspense from "../components/common/LoadingSuspense.jsx";

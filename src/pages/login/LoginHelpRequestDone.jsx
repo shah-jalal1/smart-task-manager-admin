@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 30 Apr 2025
- * Time: 3:40 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Col, Row} from "antd";
 import CustomTitle from "../../components/common/CustomTitle.jsx";

@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 13 May 2025
- * Time: 11:35 AM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Flex, Tooltip, Typography} from 'antd';
 import {PRIMARY_COLOR} from '../../constant/ColorConstant';

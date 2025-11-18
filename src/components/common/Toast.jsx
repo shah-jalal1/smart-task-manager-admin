@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 21 Apr 2025
- * Time: 3:01 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 
 let toastApi = null;
 

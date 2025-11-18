@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 28 Apr 2025
- * Time: 12:58 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import dayjs from "dayjs";
 import {DATE_FORMAT, DATE_FORMAT_THREE, DATE_FORMAT_TWO, TIME_FORMAT} from "../constant/ConstantVariables.js";
 import utc from 'dayjs/plugin/utc';

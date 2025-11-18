@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 30 Apr 2025
- * Time: 10:47 AM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Col, Form, Input, Row} from "antd";
 import LoginCoverOne from "../../components/admin-login/LoginCoverOne.jsx";

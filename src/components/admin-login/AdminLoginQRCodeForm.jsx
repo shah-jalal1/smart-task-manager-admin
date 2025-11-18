@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 30 Apr 2025
- * Time: 10:51 AM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Form} from "antd";
 import {useNavigate} from "react-router-dom";

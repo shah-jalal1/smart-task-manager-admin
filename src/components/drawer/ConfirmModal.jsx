@@ -1,11 +1,3 @@
-/**
- * Created by WebStorm.
- * User: Mehedi Hasan
- * Date: 20 May 2025
- * Time: 4:32 PM
- * Email: mdmehedihasanroni28@gmail.com
- */
-
 import React from 'react';
 import {Flex, Modal} from "antd";
 import DefaultBtn from "../buttons/DefaultBtn.jsx";
