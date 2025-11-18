@@ -1,20 +1,28 @@
 import React from 'react';
-import {Table, Form, Input, Col, Popconfirm, Select, Tag} from "antd";
-import SearchCard from "../../components/common/SearchCard.jsx";
+import {Table, Form, Popconfirm, Tag, Space, Select} from "antd";
 import PrimaryBtn from "../../components/buttons/PrimaryBtn.jsx";
 import FormDrawer from "../../components/drawer/FormDrawer.jsx";
 import CustomPageHeader from "../../components/layout/page-header/CustomPageHeader.jsx";
 import PageWrapper from "../../components/common/PageWrapper.jsx";
 import {getIcon} from "../../components/Icons.jsx";
-import DefaultBtn from "../../components/buttons/DefaultBtn.jsx";
+import IconButton from "../../components/buttons/IconButton.jsx";
 import useTaskList from "../../hooks/task/useTaskList.js";
 import useTaskMutation from "../../hooks/task/useTaskMutation.js";
 import TaskForm from "./TaskForm.jsx";
 
+const {Option} = Select;
+
 const TaskListView = () => {
     const [form] = Form.useForm();
 
-    const {loading, taskList, totalTasks, refreshList, applyFilters, filters} = useTaskList();
+    const {
+        loading,
+        taskList,
+        totalTasks,
+        refreshList,
+        filters,
+        handleFilterChange
+    } = useTaskList();
 
     const {
         taskDrawerVisible,
@@ -27,88 +35,129 @@ const TaskListView = () => {
         autoAssignTask,
     } = useTaskMutation(refreshList);
 
-    const getPriorityColor = (priority) => {
-        switch(priority) {
-            case 'High': return 'red';
-            case 'Medium': return 'orange';
-            case 'Low': return 'blue';
-            default: return 'default';
-        }
-    };
-
-    const getStatusColor = (status) => {
-        switch(status) {
-            case 'Done': return 'green';
-            case 'In Progress': return 'blue';
-            case 'Pending': return 'default';
-            default: return 'default';
-        }
-    };
-
     const columns = [
         {
             title: "Task Title",
+            dataIndex: "title",
             key: "title",
-            width: 200,
-            render: (e) => <strong>{e?.title}</strong>
+            render: (title) => <strong>{title}</strong>
         },
         {
             title: "Project",
             key: "project",
-            width: 150,
-            render: (e) => e?.project?.name || "-"
+            render: (record) => (
+                <Tag color="blue">
+                    {record?.project?.name || 'No Project'}
+                </Tag>
+            )
         },
         {
             title: "Assigned To",
-            key: "assignedMember",
-            width: 150,
-            render: (e) => e?.assignedMember?.name || <Tag>Unassigned</Tag>
-        },
-        {
-            title: "Priority",
-            key: "priority",
-            width: 100,
-            render: (e) => <Tag color={getPriorityColor(e?.priority)}>{e?.priority}</Tag>
+            key: "assignedTo",
+            render: (record) => (
+                record?.assignedTo ? (
+                    <Tag color="green">
+                        {record.assignedTo.name}
+                    </Tag>
+                ) : (
+                    <Tag>Unassigned</Tag>
+                )
+            )
         },
         {
             title: "Status",
+            dataIndex: "status",
             key: "status",
-            width: 120,
-            render: (e) => <Tag color={getStatusColor(e?.status)}>{e?.status}</Tag>
+            render: (status) => {
+                const colors = {
+                    'Pending': 'orange',
+                    'In Progress': 'blue',
+                    'Completed': 'green'
+                };
+                return <Tag color={colors[status] || 'default'}>{status}</Tag>;
+            }
+        },
+        {
+            title: "Priority",
+            dataIndex: "priority",
+            key: "priority",
+            render: (priority) => {
+                const colors = {
+                    'Low': 'green',
+                    'Medium': 'orange',
+                    'High': 'red'
+                };
+                return <Tag color={colors[priority] || 'default'}>{priority}</Tag>;
+            }
         },
         {
             title: "Action",
             key: "action",
             render: (record) => (
-                <div style={{display: "flex", gap: 8}}>
-                    <DefaultBtn
+                <Space>
+                    {!record.assignedTo && (
+                        <IconButton
+                            icon={getIcon("user")}
+                            onClick={() => autoAssignTask(record._id)}
+                            title="Auto Assign"
+                        />
+                    )}
+                    <IconButton
                         icon={getIcon("edit")}
                         onClick={() => openTaskDrawer(record)}
                         title="Edit"
                     />
                     <Popconfirm
-                        title="Are you sure you want to delete this task?"
+                        title="Delete Task"
+                        description="Are you sure you want to delete this task?"
                         onConfirm={() => deleteTask(record._id)}
                         okText="Yes"
                         cancelText="No"
+                        placement="topRight"
                     >
-                        <DefaultBtn
-                            icon={getIcon("delete")}
-                            title="Delete"
-                            danger
-                        />
+                        <span>
+                            <IconButton
+                                icon={getIcon("delete")}
+                                title="Delete"
+                                danger
+                            />
+                        </span>
                     </Popconfirm>
-                </div>
+                </Space>
             ),
-            width: 150,
+            width: 200,
             align: "center"
         },
     ];
 
     const pageHeader = (
         <CustomPageHeader
-            title="Tasks"
+            title={`Tasks (${totalTasks})`}
             extra={[
+                <Select
+                    key="status-filter"
+                    placeholder="Filter by Status"
+                    style={{width: 150, marginRight: 8}}
+                    allowClear
+                    onChange={(value) => handleFilterChange('status', value)}
+                    value={filters.status}
+                >
+                    <Option value="Pending">Pending</Option>
+                    <Option value="In Progress">In Progress</Option>
+                    <Option value="Completed">Completed</Option>
+                </Select>,
+                <Select
+                    key="priority-filter"
+                    placeholder="Filter by Priority"
+                    style={{width: 150, marginRight: 8}}
+                    allowClear
+                    onChange={(value) => handleFilterChange('priority', value)}
+                    value={filters.priority}
+                >
+                    <Option value="Low">Low</Option>
+                    <Option value="Medium">Medium</Option>
+                    <Option value="High">High</Option>
+                </Select>,
                 <PrimaryBtn
                     key={1}
                     btnName="Create New Task"
@@ -120,66 +169,34 @@ const TaskListView = () => {
 
     return (
         <PageWrapper pageHeader={pageHeader}>
-            <div>
-                <SearchCard title="Total Tasks" count={totalTasks}>
-                    <Col md={4}>
-                        <Input 
-                            allowClear 
-                            placeholder="Search tasks"
-                            onChange={(e) => applyFilters({...filters, search: e.target.value})}
-                        />
-                    </Col>
-                    <Col md={4}>
-                        <Select 
-                            placeholder="Filter by Status"
-                            allowClear
-                            style={{width: '100%'}}
-                            onChange={(value) => applyFilters({...filters, status: value})}
-                        >
-                            <Select.Option value="Pending">Pending</Select.Option>
-                            <Select.Option value="In Progress">In Progress</Select.Option>
-                            <Select.Option value="Done">Done</Select.Option>
-                        </Select>
-                    </Col>
-                    <Col md={4}>
-                        <Select 
-                            placeholder="Filter by Priority"
-                            allowClear
-                            style={{width: '100%'}}
-                            onChange={(value) => applyFilters({...filters, priority: value})}
-                        >
-                            <Select.Option value="High">High</Select.Option>
-                            <Select.Option value="Medium">Medium</Select.Option>
-                            <Select.Option value="Low">Low</Select.Option>
-                        </Select>
-                    </Col>
-                </SearchCard>
+            <Table
+                columns={columns}
+                dataSource={taskList}
+                loading={loading}
+                pagination={{
+                    total: totalTasks,
+                    pageSize: 10,
+                    showSizeChanger: true,
+                    showTotal: (total) => `Total ${total} tasks`
+                }}
+                rowKey={(row) => row._id}
+            />
 
-                <Table
-                    columns={columns}
-                    dataSource={taskList}
-                    loading={loading}
-                    pagination={false}
-                    rowKey={(row) => row._id}
+            <FormDrawer
+                open={taskDrawerVisible}
+                closeDrawer={closeTaskDrawer}
+                title={`${task ? "Edit" : "Add New"} Task`}
+                btnNameOk={task ? "Confirm Edit Task" : "Confirm New Task"}
+                handleOk={() => form.submit()}
+                loading={taskSubmitLoading}
+                handleCancel={closeTaskDrawer}
+            >
+                <TaskForm
+                    form={form}
+                    task={task}
+                    handleTaskSubmit={handleTaskSubmit}
                 />
-
-                <FormDrawer
-                    open={taskDrawerVisible}
-                    closeDrawer={closeTaskDrawer}
-                    title={`${task ? "Edit" : "Add New"} Task`}
-                    btnNameOk={task ? "Confirm Edit Task" : "Confirm New Task"}
-                    handleOk={() => form.submit()}
-                    loading={taskSubmitLoading}
-                    handleCancel={closeTaskDrawer}
-                >
-                    <TaskForm
-                        form={form}
-                        task={task}
-                        handleTaskSubmit={handleTaskSubmit}
-                        autoAssignTask={autoAssignTask}
-                    />
-                </FormDrawer>
-            </div>
+            </FormDrawer>
         </PageWrapper>
     );
 };

@@ -2,8 +2,8 @@ import {Icons} from "../helpers/Icons.jsx";
 
 // Authentication & Storage Keys
 export const TEMP_USER = "temp-user";
-export const ACCESS_TOKEN = "switch-nest-admin-access-token";
-export const PROFILE = "switch-nest-admin-profile";
+export const ACCESS_TOKEN = "smart-task-manager-access-token";
+export const PROFILE = "smart-task-manager-profile";
 
 // Date & Time Formats
 export const DATE_FORMAT = "YYYY-MM-DD";
@@ -66,7 +66,7 @@ export const mimeToExtension = {
     'video/ogg': 'ogv',
 };
 
-export const TEMP_PASS_ACCESS_TOKEN = "switch-nest-admin-temp-pass-token";
+export const TEMP_PASS_ACCESS_TOKEN = "smart-task-manager-temp-pass-token";
 
 export const packageType = {
     FREE: 'FREE',

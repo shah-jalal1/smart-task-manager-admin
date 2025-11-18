@@ -9,23 +9,40 @@ const ProjectContextProvider = ({children}) => {
     const [projectList, setProjectList] = useState([]);
     const [totalProjects, setTotalProjects] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [pagination, setPagination] = useState({page: 1, limit: 10});
 
-    const getProjectList = async (params) => {
+    const getProjectList = async (params = {}) => {
         try {
             setLoading(true);
-            const res = await ProjectService.getProjectList(params);
-            // Ensure we always set an array
-            const projects = Array.isArray(res.data) ? res.data : (res.data?.projects || []);
-            setProjectList(projects);
-            setTotalProjects(projects.length);
+            // Merge pagination with custom params
+            const queryParams = {...pagination, ...params};
+            const res = await ProjectService.getProjectList(queryParams);
+            
+            // Handle different response structures
+            if (res.data?.projects) {
+                // Paginated response
+                setProjectList(res.data.projects);
+                setTotalProjects(res.data.total || res.data.projects.length);
+            } else if (Array.isArray(res.data)) {
+                // Direct array response
+                setProjectList(res.data);
+                setTotalProjects(res.data.length);
+            } else {
+                setProjectList([]);
+                setTotalProjects(0);
+            }
         } catch (error) {
             const message = getErrorMessage(error);
             Toast("error", "Error", message);
-            setProjectList([]); // Set empty array on error
+            setProjectList([]);
             setTotalProjects(0);
         } finally {
             setLoading(false);
         }
+    };
+
+    const updatePagination = (page, limit) => {
+        setPagination({page, limit});
     };
 
     return (
@@ -35,6 +52,8 @@ const ProjectContextProvider = ({children}) => {
                 projectList,
                 totalProjects,
                 loading,
+                pagination,
+                updatePagination,
             }}
         >
             {children}

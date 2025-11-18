@@ -1,12 +1,11 @@
 import React from 'react';
-import {Table, Form, Input, Col, Popconfirm} from "antd";
-import SearchCard from "../../components/common/SearchCard.jsx";
+import {Table, Form, Popconfirm, Tag, Space} from "antd";
 import PrimaryBtn from "../../components/buttons/PrimaryBtn.jsx";
 import FormDrawer from "../../components/drawer/FormDrawer.jsx";
 import CustomPageHeader from "../../components/layout/page-header/CustomPageHeader.jsx";
 import PageWrapper from "../../components/common/PageWrapper.jsx";
 import {getIcon} from "../../components/Icons.jsx";
-import DefaultBtn from "../../components/buttons/DefaultBtn.jsx";
+import IconButton from "../../components/buttons/IconButton.jsx";
 import useProjectList from "../../hooks/project/useProjectList.js";
 import useProjectMutation from "../../hooks/project/useProjectMutation.js";
 import ProjectForm from "./ProjectForm.jsx";
@@ -29,44 +28,52 @@ const ProjectListView = () => {
     const columns = [
         {
             title: "Project Name",
+            dataIndex: "name",
             key: "name",
-            width: 200,
-            render: (e) => <strong>{e?.name}</strong>
+            render: (name) => <strong>{name}</strong>
         },
         {
             title: "Description",
+            dataIndex: "description",
             key: "description",
-            render: (e) => e?.description || "-"
+            ellipsis: true
         },
         {
             title: "Team",
             key: "team",
-            width: 150,
-            render: (e) => e?.team?.name || "-"
+            render: (record) => (
+                <Tag color="purple">
+                    {record?.team?.name || 'No Team'}
+                </Tag>
+            )
         },
         {
             title: "Action",
             key: "action",
             render: (record) => (
-                <div style={{display: "flex", gap: 8}}>
-                    <DefaultBtn
+                <Space>
+                    <IconButton
                         icon={getIcon("edit")}
                         onClick={() => openProjectDrawer(record)}
                         title="Edit"
                     />
                     <Popconfirm
-                        title="Are you sure you want to delete this project?"
+                        title="Delete Project"
+                        description="Are you sure you want to delete this project?"
                         onConfirm={() => deleteProject(record._id)}
                         okText="Yes"
                         cancelText="No"
+                        placement="topRight"
                     >
-                        <DefaultBtn
-                            icon={getIcon("delete")}
-                            title="Delete"
-                            danger
-                        />
+                        <span>
+                            <IconButton
+                                icon={getIcon("delete")}
+                                title="Delete"
+                                danger
+                            />
+                        </span>
                     </Popconfirm>
-                </div>
+                </Space>
             ),
             width: 150,
             align: "center"
@@ -75,7 +82,7 @@ const ProjectListView = () => {
 
     const pageHeader = (
         <CustomPageHeader
-            title="Projects"
+            title={`Projects (${totalProjects})`}
             extra={[
                 <PrimaryBtn
                     key={1}
@@ -88,37 +95,34 @@ const ProjectListView = () => {
 
     return (
         <PageWrapper pageHeader={pageHeader}>
-            <div>
-                <SearchCard title="Total Projects" count={totalProjects}>
-                    <Col md={6}>
-                        <Input allowClear placeholder="Search projects" />
-                    </Col>
-                </SearchCard>
+            <Table
+                columns={columns}
+                dataSource={projectList}
+                loading={loading}
+                pagination={{
+                    total: totalProjects,
+                    pageSize: 10,
+                    showSizeChanger: true,
+                    showTotal: (total) => `Total ${total} projects`
+                }}
+                rowKey={(row) => row._id}
+            />
 
-                <Table
-                    columns={columns}
-                    dataSource={projectList}
-                    loading={loading}
-                    pagination={false}
-                    rowKey={(row) => row._id}
+            <FormDrawer
+                open={projectDrawerVisible}
+                closeDrawer={closeProjectDrawer}
+                title={`${project ? "Edit" : "Add New"} Project`}
+                btnNameOk={project ? "Confirm Edit Project" : "Confirm New Project"}
+                handleOk={() => form.submit()}
+                loading={projectSubmitLoading}
+                handleCancel={closeProjectDrawer}
+            >
+                <ProjectForm
+                    form={form}
+                    project={project}
+                    handleProjectSubmit={handleProjectSubmit}
                 />
-
-                <FormDrawer
-                    open={projectDrawerVisible}
-                    closeDrawer={closeProjectDrawer}
-                    title={`${project ? "Edit" : "Add New"} Project`}
-                    btnNameOk={project ? "Confirm Edit Project" : "Confirm New Project"}
-                    handleOk={() => form.submit()}
-                    loading={projectSubmitLoading}
-                    handleCancel={closeProjectDrawer}
-                >
-                    <ProjectForm
-                        form={form}
-                        project={project}
-                        handleProjectSubmit={handleProjectSubmit}
-                    />
-                </FormDrawer>
-            </div>
+            </FormDrawer>
         </PageWrapper>
     );
 };

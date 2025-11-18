@@ -9,23 +9,40 @@ const TeamContextProvider = ({children}) => {
     const [teamList, setTeamList] = useState([]);
     const [totalTeams, setTotalTeams] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [pagination, setPagination] = useState({page: 1, limit: 10});
 
-    const getTeamList = async (params) => {
+    const getTeamList = async (params = {}) => {
         try {
             setLoading(true);
-            const res = await TeamService.getTeamList(params);
-            // Ensure we always set an array
-            const teams = Array.isArray(res.data) ? res.data : (res.data?.teams || []);
-            setTeamList(teams);
-            setTotalTeams(teams.length);
+            // Merge pagination with custom params
+            const queryParams = {...pagination, ...params};
+            const res = await TeamService.getTeamList(queryParams);
+            
+            // Handle different response structures
+            if (res.data?.teams) {
+                // Paginated response
+                setTeamList(res.data.teams);
+                setTotalTeams(res.data.total || res.data.teams.length);
+            } else if (Array.isArray(res.data)) {
+                // Direct array response
+                setTeamList(res.data);
+                setTotalTeams(res.data.length);
+            } else {
+                setTeamList([]);
+                setTotalTeams(0);
+            }
         } catch (error) {
             const message = getErrorMessage(error);
             Toast("error", "Error", message);
-            setTeamList([]); // Set empty array on error
+            setTeamList([]);
             setTotalTeams(0);
         } finally {
             setLoading(false);
         }
+    };
+
+    const updatePagination = (page, limit) => {
+        setPagination({page, limit});
     };
 
     return (
@@ -35,6 +52,8 @@ const TeamContextProvider = ({children}) => {
                 teamList,
                 totalTeams,
                 loading,
+                pagination,
+                updatePagination,
             }}
         >
             {children}

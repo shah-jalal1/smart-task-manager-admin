@@ -74,8 +74,10 @@ const AuthContextProvider = ({children}) => {
         try {
             setLoading(true);
             const res = await AuthService.getMe();
-            setProfile(res.data);
-            localStorage.setItem(PROFILE, JSON.stringify(res.data));
+            // Handle backend response structure (res.data.user or res.data)
+            const userData = res.data?.user || res.data;
+            setProfile(userData);
+            localStorage.setItem(PROFILE, JSON.stringify(userData));
         } catch (error) {
             const message = getErrorMessage(error);
             Toast("error", "Error", message);

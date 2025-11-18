@@ -1,12 +1,11 @@
 import React from 'react';
-import {Table, Form, Input, Col, Popconfirm, Tag} from "antd";
-import SearchCard from "../../components/common/SearchCard.jsx";
+import {Table, Form, Popconfirm, Tag, Space} from "antd";
 import PrimaryBtn from "../../components/buttons/PrimaryBtn.jsx";
 import FormDrawer from "../../components/drawer/FormDrawer.jsx";
 import CustomPageHeader from "../../components/layout/page-header/CustomPageHeader.jsx";
 import PageWrapper from "../../components/common/PageWrapper.jsx";
 import {getIcon} from "../../components/Icons.jsx";
-import DefaultBtn from "../../components/buttons/DefaultBtn.jsx";
+import IconButton from "../../components/buttons/IconButton.jsx";
 import useTeamList from "../../hooks/team/useTeamList.js";
 import useTeamMutation from "../../hooks/team/useTeamMutation.js";
 import TeamForm from "./TeamForm.jsx";
@@ -29,52 +28,55 @@ const TeamListView = () => {
     const columns = [
         {
             title: "Team Name",
+            dataIndex: "name",
             key: "name",
-            width: 150,
-            render: (e) => <strong>{e?.name}</strong>
+            render: (name) => <strong>{name}</strong>
         },
         {
             title: "Total Members",
             key: "members",
-            width: 150,
-            render: (e) => e?.members?.length || 0
+            render: (record) => record?.members?.length || 0
         },
         {
             title: "Members",
             key: "membersList",
-            render: (e) => (
-                <div>
-                    {e?.members?.map((member, idx) => (
+            render: (record) => (
+                <Space wrap>
+                    {record?.members?.map((member, idx) => (
                         <Tag key={idx} color="blue">
                             {member.name} ({member.role}) - Capacity: {member.capacity}
                         </Tag>
                     ))}
-                </div>
+                </Space>
             )
         },
         {
             title: "Action",
             key: "action",
             render: (record) => (
-                <div style={{display: "flex", gap: 8}}>
-                    <DefaultBtn
+                <Space>
+                    <IconButton
                         icon={getIcon("edit")}
                         onClick={() => openTeamDrawer(record)}
                         title="Edit"
                     />
                     <Popconfirm
-                        title="Are you sure you want to delete this team?"
+                        title="Delete Team"
+                        description="Are you sure you want to delete this team?"
                         onConfirm={() => deleteTeam(record._id)}
                         okText="Yes"
                         cancelText="No"
+                        placement="topRight"
                     >
-                        <DefaultBtn
-                            icon={getIcon("delete")}
-                            title="Delete"
-                            danger
-                        />
+                        <span>
+                            <IconButton
+                                icon={getIcon("delete")}
+                                title="Delete"
+                                danger
+                            />
+                        </span>
                     </Popconfirm>
-                </div>
+                </Space>
             ),
             width: 150,
             align: "center"
@@ -83,7 +85,7 @@ const TeamListView = () => {
 
     const pageHeader = (
         <CustomPageHeader
-            title="Teams"
+            title={`Teams (${totalTeams})`}
             extra={[
                 <PrimaryBtn
                     key={1}
@@ -96,37 +98,34 @@ const TeamListView = () => {
 
     return (
         <PageWrapper pageHeader={pageHeader}>
-            <div>
-                <SearchCard title="Total Teams" count={totalTeams}>
-                    <Col md={6}>
-                        <Input allowClear placeholder="Search teams" />
-                    </Col>
-                </SearchCard>
+            <Table
+                columns={columns}
+                dataSource={teamList}
+                loading={loading}
+                pagination={{
+                    total: totalTeams,
+                    pageSize: 10,
+                    showSizeChanger: true,
+                    showTotal: (total) => `Total ${total} teams`
+                }}
+                rowKey={(row) => row._id}
+            />
 
-                <Table
-                    columns={columns}
-                    dataSource={teamList}
-                    loading={loading}
-                    pagination={false}
-                    rowKey={(row) => row._id}
+            <FormDrawer
+                open={teamDrawerVisible}
+                closeDrawer={closeTeamDrawer}
+                title={`${team ? "Edit" : "Add New"} Team`}
+                btnNameOk={team ? "Confirm Edit Team" : "Confirm New Team"}
+                handleOk={() => form.submit()}
+                loading={teamSubmitLoading}
+                handleCancel={closeTeamDrawer}
+            >
+                <TeamForm
+                    form={form}
+                    team={team}
+                    handleTeamSubmit={handleTeamSubmit}
                 />
-
-                <FormDrawer
-                    open={teamDrawerVisible}
-                    closeDrawer={closeTeamDrawer}
-                    title={`${team ? "Edit" : "Add New"} Team`}
-                    btnNameOk={team ? "Confirm Edit Team" : "Confirm New Team"}
-                    handleOk={() => form.submit()}
-                    loading={teamSubmitLoading}
-                    handleCancel={closeTeamDrawer}
-                >
-                    <TeamForm
-                        form={form}
-                        team={team}
-                        handleTeamSubmit={handleTeamSubmit}
-                    />
-                </FormDrawer>
-            </div>
+            </FormDrawer>
         </PageWrapper>
     );
 };
