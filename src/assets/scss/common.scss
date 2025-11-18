@@ -1,0 +1,35 @@
+@use "colors" as *;
+
+/* Mixin */
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+@mixin transition($property) {
+  -webkit-transition: $property;
+  -ms-transition: $property;
+  transition: $property;
+}
+
+@mixin flexContentCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexContentRightAlign {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@mixin fullDisplay {
+  width: 100%;
+  min-height: 100vh;
+}
+
+@mixin flexContentBetween {
+  display: flex;
+  justify-content: space-between;
+}

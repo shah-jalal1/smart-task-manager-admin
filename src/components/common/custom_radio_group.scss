@@ -1,0 +1,35 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 05 May 2025
+ * Time: 6:09 PM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+
+@use "../../assets/scss/colors" as *;
+
+.custom-radio-group {
+  background-color: $input-bgc;
+  padding: 4px;
+  border-radius: 2px;
+
+  .ant-radio-group {
+    .ant-radio-button-wrapper-checked {
+      background: $primary-color !important;
+      //&:hover {
+      //  background: $primary-color;
+      //}
+    }
+
+    .ant-radio-button-wrapper {
+      background-color: $input-bgc;
+      border-radius: 2px;
+      text-align: center;
+      border: none;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+}

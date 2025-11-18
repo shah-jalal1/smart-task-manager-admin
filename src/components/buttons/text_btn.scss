@@ -1,0 +1,14 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 22 Apr 2025
+ * Time: 4:45 PM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+
+@use "../../assets/scss/colors" as *;
+
+.text-btn {
+  cursor: pointer;
+  color: $primary-color;
+}

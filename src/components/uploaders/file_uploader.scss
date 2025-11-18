@@ -1,0 +1,54 @@
+@use "../../assets/scss/colors" as *;
+
+.file-uploader {
+  border: none;
+
+  .ant-upload-drag {
+    border: none;
+
+    .ant-upload {
+      width: 100%;
+      padding: 0;
+
+      .upload-btn-wrapper {
+        width: 100%;
+        height: 163px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border: 1px dashed #DFDFDF;
+        border-radius: 5px;
+        background-color: $input-bgc;
+        color: $text-tertiary;
+
+        .upload-file-title {
+          font-size: 15px;
+          font-weight: 500;
+        }
+
+        .select-btn {
+          width: 373px;
+          height: 70px;
+          background-color: $primary-color;
+          color: $white;
+          font-size: 20px;
+
+          &:hover {
+            border-color: $primary-color;
+          }
+        }
+
+        .extension-support-txt {
+          font-size: 13px;
+          margin: 4px 0;
+
+          span {
+            color: $primary-color;
+            border-bottom: 1px solid $primary-color;
+          }
+        }
+      }
+    }
+  }
+}

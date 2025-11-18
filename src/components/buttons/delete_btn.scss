@@ -1,0 +1,16 @@
+@use "../../assets/scss/colors" as *;
+
+.delete-btn {
+  background: $red-color;
+  color: $white;
+  padding-left: 24px;
+  padding-right: 24px;
+  font-weight: 600;
+  border: none;
+
+  &:hover {
+    background: $red-color !important;
+    color: $white !important;
+  }
+
+}

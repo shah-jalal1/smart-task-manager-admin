@@ -1,0 +1,25 @@
+@use "../../assets/scss/colors" as *;
+
+.custom-default-btn {
+  background: $default-btn-bgc;
+  color: $default-btn-color;
+  padding-left: 24px;
+  padding-right: 24px;
+  font-weight: 600;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+
+  .btn-title {
+    font-weight: 400;
+    color: $text-secondary;
+    margin-left: -3px;
+  }
+
+  &:hover {
+    background: $default-btn-bgc !important;
+    color: $default-btn-color !important;
+    border-color: transparent !important;
+  }
+
+}

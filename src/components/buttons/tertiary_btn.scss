@@ -1,0 +1,16 @@
+@use "../../assets/scss/colors" as *;
+
+.tertiary-btn {
+    height: 44px;
+    background: $white;
+    color: $primary-color;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-weight: 600;
+    border-radius: 2px;
+    border: 1px solid $primary-color;
+
+    .ant-btn-icon {
+        height: 18px !important;
+    }
+}

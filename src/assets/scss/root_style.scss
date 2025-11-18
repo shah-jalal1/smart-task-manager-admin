@@ -1,0 +1,232 @@
+@use "colors" as *;
+@use "common" as *;
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $body-bgc;
+}
+
+code {
+  font-family: "Poppins", sans-serif;
+}
+
+/* This will work on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: darkgray #dddddd;
+}
+
+/* Target's on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #dddddd;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+}
+
+:where(.css-dev-only-do-not-override-18tcgxq).ant-layout {
+  background: $body-bgc;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+/* ============  Start Custom CSS =========== */
+
+/* APP layout */
+.app-wrapper {
+  display: grid;
+  @include fullDisplay;
+
+  .app-page {
+
+    .page-header {
+      //height: 86px;
+
+      .custom-page-header-wrapper {
+
+        padding: 15px 0;
+
+        .ant-page-header {
+
+          .ant-page-header-heading-left {
+            .ant-page-header-heading-title {
+              color: $text-secondary;
+              font-size: 32px;
+            }
+          }
+        }
+      }
+
+      .ant-breadcrumb {
+        height: 22px;
+        padding-left: 20px;
+      }
+
+    }
+
+    .page-tab-header {
+      position: relative;
+      height: calc(100dvh - 106px);
+      padding: 20px 20px 0 20px;
+      //margin: 20px 0 0;
+
+      .page-header-tabs {
+        height: 100%;
+
+        .ant-tabs-content-holder {
+          background-color: $white;
+          height: calc(100% - 46px);
+
+          .ant-tabs-content {
+            height: 100%;
+
+            .ant-tabs-tabpane {
+              height: 100%;
+            }
+          }
+        }
+
+      }
+
+    }
+
+    .page-subheader {
+      padding: 20px 20px 0 20px;
+    }
+
+    .page-content {
+      position: relative;
+      //height: calc(100dvh - 126px);
+      height: calc(100dvh - 115px);
+      margin: 0 20px 20px;
+      padding: 20px;
+      background-color: $white;
+      overflow-y: auto;
+    }
+
+    .page-content-two {
+      //TODO: Page content
+      //height: calc(100dvh - 246px);
+      overflow-y: auto;
+      position: relative;
+      margin: 20px;
+      padding: 20px;
+      background-color: $white;
+    }
+
+  }
+}
+
+.ant-select {
+  height: 44px;
+}
+
+.ant-select-selector {
+  background-color: $input-bgc !important;
+  border-color: $white !important;
+}
+
+.ant-radio-button-wrapper {
+  height: 44px;
+  line-height: 44px;
+  border: none;
+}
+
+.ant-btn-variant-outlined:disabled {
+  background: $default-btn-bgc !important;
+
+  &:hover {
+    background: $default-btn-bgc !important;
+    color: #2437573F !important;
+  }
+}
+
+.form-drawer-root-class {
+  .ant-drawer-content {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+}
+
+.ant-table-pagination {
+  align-items: center;
+
+  .ant-pagination-options {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ant-collapse-header {
+  align-items: center !important;
+}
+
+//.ant-picker {
+//  height: 44px;
+//  background-color: $input-bgc;
+//  border: none;
+//
+//  &:hover {
+//    background-color: $input-bgc;
+//  }
+//}
+
+.ant-picker {
+  height: 44px;
+  background-color: $white !important;
+  color: #5D6B82 !important;
+  border-radius: 2px !important;
+  border: none;
+
+  &:hover {
+    background-color: $input-bgc;
+  }
+}
+
+
+.ant-picker-outlined {
+  &:hover {
+    background-color: $input-bgc;
+  }
+}
+
+.ant-breadcrumb {
+  height: 22px;
+  padding-left: 20px;
+}
+
+.custom-ant-select .ant-select-selector {
+  background-color: red !important;
+  border: none !important;
+}
+
+.custom-ant-select .ant-select-arrow {
+  color: #d9d9d9 !important;
+  border: none !important;
+}
+
+.custom-ant-select .ant-select-selection-item {
+  color: #000;
+  border: none !important;
+
+}
+
+
+.custom-search-select .ant-select-selection-item {
+  font-weight: bold !important;
+}
+
+.custom-select-text {
+  font-weight: 400 !important;
+}

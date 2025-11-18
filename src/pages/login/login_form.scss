@@ -1,0 +1,34 @@
+@use "../../assets/scss/colors" as *;
+
+.login-form {
+
+  .forgot-password {
+    display: flex;
+    justify-content: flex-end;
+
+    p {
+      margin: 14px 0;
+      color: $primary-color;
+    }
+  }
+
+  .login-form-subtitle {
+    margin-top: 0;
+  }
+
+  .need-help-login {
+    display: block;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .otp-wrapper {
+    input {
+      &:focus-visible {
+        outline: 1px solid $primary-color !important;
+        background-color: $primary-color-shade !important;
+      }
+    }
+  }
+
+}

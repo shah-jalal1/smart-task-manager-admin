@@ -1,0 +1,36 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 28 Apr 2025
+ * Time: 12:29 PM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+import {GREEN_COLOR, INACTIVE_COLOR, PENDING_COLOR, PRIMARY_COLOR, RED_COLOR} from "./ColorConstant.js";
+
+export const EMAILS_STATUS_COLOR_MAP = {
+    "SUCCESS": GREEN_COLOR,
+    "PENDING": PENDING_COLOR,
+    "MANUAL_PROCESS": RED_COLOR
+}
+
+export const AI_TRAINING_STATUS_COLOR_MAP = {
+    "ENABLED": PRIMARY_COLOR,
+    "DISABLED": INACTIVE_COLOR,
+}
+
+export const RULES_OPERATOR_COLOR_MAP = {
+    "IS": PRIMARY_COLOR,
+    "IS_NOT": PRIMARY_COLOR,
+}
+
+export const BILLING_STATUS_COLOR_MAP = {
+    "PENDING": PENDING_COLOR,
+    "IN_PROGRESS": PRIMARY_COLOR,
+    "COMPLETED": GREEN_COLOR,
+}
+
+export const INVOICE_STATUS_COLOR_MAP = {
+    "BOOKED": PRIMARY_COLOR,
+    "UNDER_NEGOTIATION": PENDING_COLOR,
+    "SENT": GREEN_COLOR,
+}

@@ -1,0 +1,83 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 22 Apr 2025
+ * Time: 3:24 PM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+
+@use "../../assets/scss/colors.scss" as *;
+
+.custom-pagination {
+  width: 100%;
+  height: 84px;
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .ant-pagination {
+
+    .ant-pagination-prev {
+      .previous-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        svg {
+          path {
+            stroke: $inactive-color;
+          }
+        }
+      }
+    }
+
+    .ant-pagination-prev[aria-disabled="false"] {
+      .previous-btn {
+        color: $primary-color;
+
+        svg {
+          path {
+            stroke: $primary-color;
+          }
+        }
+      }
+    }
+
+    .ant-pagination-next {
+      .next-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        svg {
+          path {
+            stroke: $inactive-color;
+          }
+        }
+
+      }
+    }
+
+    .ant-pagination-next[aria-disabled="false"] {
+      .next-btn {
+        color: $primary-color;
+
+        svg {
+          path {
+            stroke: $primary-color;
+          }
+        }
+      }
+    }
+
+    .ant-pagination-options {
+      position: absolute;
+      right: 20px;
+    }
+  }
+}

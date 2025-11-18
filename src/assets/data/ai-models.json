@@ -1,0 +1,9 @@
+{
+  "LLAMA_3_1": "LLAMA 3.1",
+  "LLAMA_3_2": "LLAMA 3.2",
+  "LLAMA_3_3": "LLAMA 3.3",
+  "LLAMA_4_0": "LLAMA 4.0",
+  "GEMMA": "Gemma",
+  "DEEPSEEK": "DeepSeek",
+  "QWEN": "Qwen"
+}

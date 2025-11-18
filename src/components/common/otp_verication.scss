@@ -1,0 +1,9 @@
+@use "../../assets/scss/colors" as *;
+
+.otp-wrapper {
+  input {
+    &:focus-visible {
+      outline: 2px solid $primary-color !important;
+    }
+  }
+}

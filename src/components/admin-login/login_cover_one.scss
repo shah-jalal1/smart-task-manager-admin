@@ -1,0 +1,37 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 30 Apr 2025
+ * Time: 10:51 AM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+
+@use "../../assets/scss/colors" as *;
+
+.admin-activation-login-cover {
+  height: 100%;
+  background-color: $primary-color-shade;
+
+  .admin-activation-login-cover-brand-wrapper {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .admin-activation-login-cover-wrapper {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .all-right {
+      color: #42526D;
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+}

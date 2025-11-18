@@ -1,0 +1,175 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 21 Apr 2025
+ * Time: 2:28 PM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+
+@use "../../assets/scss/colors" as *;
+
+.aside-left {
+  width: 100%;
+
+  .menu-wrapper {
+    height: calc(100vh - 80px);
+    background-color: $aside-left-bgc;
+
+
+    .ant-menu {
+      .ant-menu-item {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+
+        .ant-menu-title-content {
+          margin-left: 12px;
+          font-size: 14px;
+          color: $text-secondary;
+        }
+
+        .ant-menu-item-extra {
+          //color: $white;
+        }
+
+        &:not(.ant-menu-item-selected) {
+          //&:hover {
+          //  background-color: $aside-left-bgc !important;
+          //}
+          //color: $white;
+        }
+
+      }
+
+      .ant-menu-item-selected {
+        background-color: $primary-color-shade;
+
+        .ant-menu-title-content {
+          color: $primary-color;
+          font-weight: 500;
+        }
+
+        svg {
+
+          path {
+            fill: $primary-color;
+          }
+        }
+      }
+
+      .ant-menu-submenu {
+
+        .ant-menu-submenu-title {
+          width: 100%;
+          border-radius: 0;
+          margin-left: 0;
+          margin-right: 0;
+
+          .ant-menu-title-content {
+            margin-left: 12px;
+            color: $text-secondary;
+          }
+        }
+
+        .ant-menu-sub {
+          background-color: $white;
+
+          .ant-menu-item {
+            padding-left: 24px !important;
+          }
+        }
+
+      }
+
+      .ant-menu-submenu-selected {
+        .ant-menu-submenu-title {
+          background-color: $primary-color-shade;
+
+          .ant-menu-title-content {
+            color: $primary-color;
+            font-weight: 500;
+          }
+        }
+
+        svg {
+          path {
+            //fill: $primary-color;
+          }
+        }
+
+        .ant-menu-sub {
+          .ant-menu-item-selected {
+            background-color: $white;
+
+            .ant-menu-title-content {
+              color: $primary-color;
+              font-weight: 500;
+            }
+
+            svg {
+
+              path {
+                //fill: $primary-color;
+              }
+            }
+          }
+        }
+
+      }
+
+    }
+
+    .aside-left-content-top {
+      height: 80%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: $aside-left-bgc;
+      padding: 12px;
+    }
+
+    .aside-left-content-bottom {
+      height: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: $aside-left-bgc;
+      padding: 12px;
+
+      .ant-menu-item {
+
+        &:first-child {
+          cursor: default;
+        }
+
+        &:hover {
+          background-color: $aside-left-bgc;
+        }
+      }
+
+      .ant-menu-item-selected {
+        background-color: $aside-left-bgc;
+
+        .ant-menu-title-content {
+          color: $text-secondary;
+        }
+
+        svg {
+
+          path {
+            fill: $text-secondary;
+          }
+        }
+
+        &:hover {
+          background-color: $aside-left-bgc;
+          color: $text-secondary;
+        }
+
+      }
+
+    }
+  }
+
+}

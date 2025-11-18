@@ -1,0 +1,25 @@
+@use "../../assets/scss/colors" as *;
+
+.search-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .search-card-left {
+    width: 20%;
+
+    .title {
+
+    }
+
+    .count {
+      margin-left: 5px;
+      font-weight: 700;
+    }
+  }
+
+  .search-card-right {
+    width: 80%;
+  }
+
+}

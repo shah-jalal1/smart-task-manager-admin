@@ -1,0 +1,15 @@
+@use "../../../assets/scss/colors" as *;
+
+.brand {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  padding: 20px;
+  //border-top-right-radius: 12px;
+  //border-top-left-radius: 12px;
+  background-color: $aside-left-bgc;
+
+  .collapse-icon {
+    padding-top: 11px;
+  }
+}

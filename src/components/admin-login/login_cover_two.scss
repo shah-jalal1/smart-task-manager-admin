@@ -1,0 +1,24 @@
+/**
+ * Created by WebStorm.
+ * User: Mehedi Hasan
+ * Date: 30 Apr 2025
+ * Time: 10:51 AM
+ * Email: mdmehedihasanroni28@gmail.com
+ */
+
+@use "../../assets/scss/colors" as *;
+
+.login-cover-two {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $primary-color-shade;
+
+  .login-cover-two-brand-wrapper {
+  }
+
+  .login-cover-hero-wrapper {
+  }
+}

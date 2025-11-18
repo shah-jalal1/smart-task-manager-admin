@@ -1,0 +1,11 @@
+@use "../../assets/scss/colors" as *;
+
+.dashboard-page {
+  .view-all {
+    text-decoration: underline;
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
