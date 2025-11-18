@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext} from "react";
 import privateAPI from "./privateAPI";
 import {authorizationHeader} from "../utils/GenericUtils.js";
 import {AuthContext} from "../context/AuthContextProvider.jsx";

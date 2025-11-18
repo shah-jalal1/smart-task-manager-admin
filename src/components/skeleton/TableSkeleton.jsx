@@ -1,4 +1,3 @@
-import React from 'react';
 import './TableSkeleton.css';  // Assuming the CSS is saved as TableSkeleton.css
 
 const TableSkeleton = () => {

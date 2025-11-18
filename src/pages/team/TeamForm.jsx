@@ -1,4 +1,3 @@
-import React from "react";
 import {Form, Input, Button, InputNumber, Space} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import useTeamFormHandler from "../../hooks/team/useTeamFormHandler.js";

@@ -1,8 +1,6 @@
-import React from 'react';
+import "./LoginFormLayoutOne.scss";
 
-import "./login_form_layout_one.scss";
-
-const LoginFormLayoutOne = ({childrenOne, childrenTwo}) => {
+const LoginFormLayoutOne = ({children}) => {
     return (
         <div className="login-form-layout-one">
             <div className="login-form-layout-child-one">

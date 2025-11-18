@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react';
+import {createContext, useState} from 'react';
 import {getErrorMessage} from "../utils/GenericUtils.js";
 import {Toast} from "../components/common/Toast.jsx";
 import DashboardService from "../services/DashboardService.js";

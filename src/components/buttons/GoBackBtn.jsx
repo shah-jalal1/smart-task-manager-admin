@@ -1,4 +1,3 @@
-import React from 'react';
 import {Flex} from "antd";
 import {getIcon} from "../Icons.jsx";
 

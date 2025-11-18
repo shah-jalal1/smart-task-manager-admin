@@ -1,4 +1,3 @@
-import React from 'react';
 import {Flex, Modal} from "antd";
 import DefaultBtn from "../buttons/DefaultBtn.jsx";
 import {getIcon} from "../Icons.jsx";

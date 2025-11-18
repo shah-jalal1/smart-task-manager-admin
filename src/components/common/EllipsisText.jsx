@@ -1,4 +1,3 @@
-import React from 'react';
 import {Flex, Tooltip, Typography} from 'antd';
 import {PRIMARY_COLOR} from '../../constant/ColorConstant';
 

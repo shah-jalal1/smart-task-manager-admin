@@ -1,7 +1,6 @@
 import {useLocation} from "react-router-dom";
-import {ACCESS_TOKEN, addressChangeStatus} from "../constant/ConstantVariables.js";
+import {ACCESS_TOKEN} from "../constant/ConstantVariables.js";
 import dayjs from "dayjs";
-import {Tag} from "antd";
 
 export const getErrorMessage = (error) => {
     if (error.response) {

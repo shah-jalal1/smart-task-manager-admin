@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {Form, Input, Select} from "antd";
 import useProjectFormHandler from "../../hooks/project/useProjectFormHandler.js";
 import {TeamContext} from "../../context/TeamContextProvider.jsx";

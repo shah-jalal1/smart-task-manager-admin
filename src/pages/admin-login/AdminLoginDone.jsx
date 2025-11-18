@@ -1,4 +1,3 @@
-import React from 'react';
 import {Col, Row} from "antd";
 import LoginCoverTwo from "../../components/admin-login/LoginCoverTwo.jsx";
 import AdminLoginDoneContent from "../../components/admin-login/AdminLoginDoneContent.jsx";

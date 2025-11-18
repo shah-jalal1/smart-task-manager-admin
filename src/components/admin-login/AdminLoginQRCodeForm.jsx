@@ -1,4 +1,3 @@
-import React from 'react';
 import {Form} from "antd";
 import {useNavigate} from "react-router-dom";
 import LoadingSuspense from "../common/LoadingSuspense.jsx";

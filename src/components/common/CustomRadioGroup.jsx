@@ -1,4 +1,3 @@
-import React from 'react';
 import {Radio} from "antd";
 
 import "./custom_radio_group.scss";

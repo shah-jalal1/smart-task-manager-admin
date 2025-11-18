@@ -1,4 +1,3 @@
-import React from 'react';
 
 import "./page_content_card.scss";
 import {Spin} from "antd";

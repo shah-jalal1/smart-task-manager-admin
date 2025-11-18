@@ -1,4 +1,3 @@
-import React from 'react';
 
 import "./login_form_layout_two.scss";
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import {Col} from 'antd';
 import './dashboard_card.scss';
 import {getIcon} from '../../components/Icons';

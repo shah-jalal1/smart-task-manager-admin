@@ -1,4 +1,3 @@
-import React from 'react';
 import {addressChangeStatus} from "../../constant/ConstantVariables.js";
 
 const StatusBadge = ({status, color}) => {

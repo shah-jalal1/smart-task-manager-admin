@@ -1,4 +1,3 @@
-import React from 'react';
 import {longToDateFormaterTwo, longToTimeFormatter} from "../../utils/DateFormaterUtils.js";
 
 const TableDateTimeSeparator = ({date}) => {

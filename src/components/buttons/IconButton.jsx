@@ -1,4 +1,3 @@
-import React from 'react';
 import {Button} from "antd";
 
 const IconButton = ({icon, onClick, loading, danger, type = "text", title}) => {

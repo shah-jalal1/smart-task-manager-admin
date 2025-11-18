@@ -1,4 +1,3 @@
-import React from 'react';
 import {Spin} from 'antd';
 
 const LoadingSuspense = ({height = "100%", width = "100%"}) => {

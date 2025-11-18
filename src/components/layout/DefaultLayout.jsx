@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useContext, useEffect} from 'react';
+import {lazy, Suspense, useContext, useEffect} from 'react';
 import {Layout} from 'antd';
 import {Navigate, Route, Routes} from "react-router-dom";
 import PageRoutes from "../../routes/PageRoutes";

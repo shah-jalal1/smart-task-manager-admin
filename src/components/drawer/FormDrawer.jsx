@@ -1,4 +1,3 @@
-import React from 'react';
 import {Drawer, Flex} from "antd";
 import PrimaryBtn from "../buttons/PrimaryBtn.jsx";
 import DefaultBtn from "../buttons/DefaultBtn.jsx";

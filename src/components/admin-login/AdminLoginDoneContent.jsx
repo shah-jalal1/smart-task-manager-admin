@@ -1,4 +1,3 @@
-import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {LOGIN_PATH} from "../../routes/Slug.js";
 import PrimaryBtn from "../buttons/PrimaryBtn.jsx";

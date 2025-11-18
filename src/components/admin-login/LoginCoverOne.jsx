@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ImageView from "../viewer/ImageView.jsx";
 
 import "./login_cover_one.scss";

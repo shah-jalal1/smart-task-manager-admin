@@ -1,4 +1,3 @@
-import React from 'react';
 import {Col, Row} from "antd";
 import CustomTitle from "../../components/common/CustomTitle.jsx";
 import {PRIMARY_COLOR} from "../../constant/ColorConstant.js";

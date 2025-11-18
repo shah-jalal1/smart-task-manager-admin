@@ -1,4 +1,3 @@
-import React from 'react';
 import {Col, Form, Input, Row} from "antd";
 import LoginCoverOne from "../../components/admin-login/LoginCoverOne.jsx";
 import LoginFormLayoutOne from "../../components/form-layout/LoginFormLayoutOne.jsx";

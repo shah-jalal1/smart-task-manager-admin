@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {Row, Col, Card, Statistic, Button, Table, Tag, List, Typography} from "antd";
 import {DashboardContext} from "../../context/DashboardContextProvider.jsx";
 import CustomPageHeader from "../../components/layout/page-header/CustomPageHeader.jsx";

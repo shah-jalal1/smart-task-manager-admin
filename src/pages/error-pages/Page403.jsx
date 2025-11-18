@@ -1,4 +1,3 @@
-import React from 'react';
 import {PAGE_403_PATH} from "../../routes/Slug";
 import ErrorLayout from "../../components/layout/ErrorLayout.jsx";
 

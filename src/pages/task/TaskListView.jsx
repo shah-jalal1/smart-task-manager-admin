@@ -1,4 +1,3 @@
-import React from 'react';
 import {Table, Form, Popconfirm, Tag, Space, Select} from "antd";
 import PrimaryBtn from "../../components/buttons/PrimaryBtn.jsx";
 import FormDrawer from "../../components/drawer/FormDrawer.jsx";

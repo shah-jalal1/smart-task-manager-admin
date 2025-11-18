@@ -1,4 +1,3 @@
-import React from 'react';
 import {Button} from "antd";
 
 import "./custom_drop_down_btn.scss";

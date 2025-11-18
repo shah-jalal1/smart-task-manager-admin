@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react';
+import {createContext, useState} from 'react';
 import {ACCESS_TOKEN, PROFILE} from "../constant/ConstantVariables.js";
 import AuthService from "../services/AuthService.js";
 import {getErrorMessage} from "../utils/GenericUtils.js";
