@@ -60,7 +60,6 @@ const TeamListView = () => {
                     <DefaultBtn
                         icon={getIcon("edit")}
                         onClick={() => openTeamDrawer(record)}
-                        title="Edit"
                     />
                     <Popconfirm
                         title="Are you sure you want to delete this team?"
@@ -70,7 +69,6 @@ const TeamListView = () => {
                     >
                         <DefaultBtn
                             icon={getIcon("delete")}
-                            title="Delete"
                             danger
                         />
                     </Popconfirm>

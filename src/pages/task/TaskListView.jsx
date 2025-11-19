@@ -84,7 +84,6 @@ const TaskListView = () => {
                     <DefaultBtn
                         icon={getIcon("edit")}
                         onClick={() => openTaskDrawer(record)}
-                        title="Edit"
                     />
                     <Popconfirm
                         title="Are you sure you want to delete this task?"
@@ -94,7 +93,6 @@ const TaskListView = () => {
                     >
                         <DefaultBtn
                             icon={getIcon("delete")}
-                            title="Delete"
                             danger
                         />
                     </Popconfirm>

@@ -52,7 +52,6 @@ const ProjectListView = () => {
                     <DefaultBtn
                         icon={getIcon("edit")}
                         onClick={() => openProjectDrawer(record)}
-                        title="Edit"
                     />
                     <Popconfirm
                         title="Are you sure you want to delete this project?"
@@ -62,7 +61,6 @@ const ProjectListView = () => {
                     >
                         <DefaultBtn
                             icon={getIcon("delete")}
-                            title="Delete"
                             danger
                         />
                     </Popconfirm>
