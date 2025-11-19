@@ -7,7 +7,7 @@ const DeleteSecondaryBtn = ({ btnName, onClick, icon, loading, style, ...rest })
 
     return (
         <Button
-            onClick={() => onClick ? onClick() : null}
+            onClick={onClick}
             icon={icon ? icon : null}
             loading={loading}
             className="delete-secondary-btn"
