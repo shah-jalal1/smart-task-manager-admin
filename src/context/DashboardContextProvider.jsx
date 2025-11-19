@@ -35,14 +35,25 @@ const DashboardContextProvider = ({children}) => {
             
             setDashboardData(dashboard);
             
-            // Set activity logs if included in dashboard response
+            // Set activity logs from dashboard response
             if (Array.isArray(dashboard.recentActivity)) {
                 setActivityLogs(dashboard.recentActivity);
+            } else {
+                setActivityLogs([]);
+            }
+            
+            // Set team workload from dashboard response
+            if (Array.isArray(dashboard.teamSummary)) {
+                setTeamWorkload(dashboard.teamSummary);
+            } else {
+                setTeamWorkload([]);
             }
         } catch (error) {
             const message = getErrorMessage(error);
             Toast("error", "Error", message);
             setDashboardData(null);
+            setActivityLogs([]);
+            setTeamWorkload([]);
         } finally {
             setLoading(false);
         }
