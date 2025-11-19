@@ -91,31 +91,6 @@ const TaskListView = () => {
                 
                 return (
                     <div style={{display: "flex", gap: 8}}>
-                        {isUnassigned && (
-                            <Tooltip title={
-                                canAutoAssign 
-                                    ? "Auto-assign to member with least load" 
-                                    : "Task must have a project assigned to auto-assign"
-                            }>
-                                <Popconfirm
-                                    title="Auto-assign this task to the member with the least workload?"
-                                    onConfirm={() => autoAssignTask(record._id)}
-                                    okText="Yes"
-                                    cancelText="No"
-                                    disabled={!canAutoAssign}
-                                >
-                                    <DefaultBtn
-                                        icon={getIcon("user")}
-                                        style={{
-                                            backgroundColor: canAutoAssign ? '#52c41a' : '#d9d9d9', 
-                                            color: 'white',
-                                            cursor: canAutoAssign ? 'pointer' : 'not-allowed'
-                                        }}
-                                        disabled={!canAutoAssign}
-                                    />
-                                </Popconfirm>
-                            </Tooltip>
-                        )}
                         <DefaultBtn
                             icon={getIcon("edit")}
                             onClick={() => openTaskDrawer(record)}
