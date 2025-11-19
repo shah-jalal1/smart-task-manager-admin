@@ -62,7 +62,12 @@ const TaskListView = () => {
             title: "Assigned To",
             key: "assignedMember",
             width: 150,
-            render: (e) => e?.assignedMember?.name || <Tag>Unassigned</Tag>
+            render: (e) => {
+                if (e?.assignedMemberName && e?.assignedMemberName !== 'Unassigned') {
+                    return <Tag color="blue">{e.assignedMemberName}</Tag>;
+                }
+                return <Tag>Unassigned</Tag>;
+            }
         },
         {
             title: "Priority",
