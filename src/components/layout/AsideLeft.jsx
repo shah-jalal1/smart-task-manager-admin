@@ -62,7 +62,7 @@ const AsideLeft = () => {
     const bottomMenuItems = [
         {
             key: "user",
-            label: `${profile?.name || 'User'}`,
+            label: profile?.name || `${profile?.firstName} ${profile?.lastName}` || "User",
             icon: getIcon("user_circle"),
         },
         // {

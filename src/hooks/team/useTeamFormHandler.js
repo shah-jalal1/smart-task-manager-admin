@@ -1,24 +1,23 @@
-import {useEffect} from "react";
+import {useEffect} from 'react';
 
 const useTeamFormHandler = (form, team, handleTeamSubmit) => {
-
     useEffect(() => {
         if (team) {
             form.setFieldsValue({
                 name: team.name,
-                members: team.members || [],
+                members: team.members || []
             });
         } else {
             form.resetFields();
         }
     }, [team, form]);
 
-    const onFinish = async (values) => {
-        await handleTeamSubmit(values);
+    const onFinish = (values) => {
+        handleTeamSubmit(values);
     };
 
     return {
-        onFinish,
+        onFinish
     };
 };
 
