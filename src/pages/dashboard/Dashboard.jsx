@@ -11,35 +11,63 @@ import "./dashboard.scss";
 const {Title, Text} = Typography;
 
 const Dashboard = () => {
-    const {getDashboard, getActivityLogs, dashboardData, activityLogs, loading} = useContext(DashboardContext);
+    const {getDashboard, getActivityLogs, getTeamWorkloadSummary, dashboardData, activityLogs, teamWorkload, loading} = useContext(DashboardContext);
     const [reassigning, setReassigning] = useState(false);
 
     useEffect(() => {
         loadDashboard();
+        loadActivityLogs();
+        loadTeamWorkload();
     }, []);
 
     const loadDashboard = async () => {
         await getDashboard();
     };
 
+    const loadActivityLogs = async () => {
+        await getActivityLogs();
+    };
+
+    const loadTeamWorkload = async () => {
+        await getTeamWorkloadSummary();
+    };
+
     // Flatten team members for the table
     const flattenedTeamMembers = React.useMemo(() => {
-        if (!dashboardData?.teamSummary) return [];
+        if (!teamWorkload || teamWorkload.length === 0) {
+            // Fallback to dashboardData if teamWorkload is not available
+            if (!dashboardData?.teamSummary) return [];
+            
+            const members = [];
+            dashboardData.teamSummary.forEach(team => {
+                if (Array.isArray(team.members)) {
+                    team.members.forEach(member => {
+                        members.push({
+                            ...member,
+                            teamName: team.teamName,
+                            teamId: team.teamId
+                        });
+                    });
+                }
+            });
+            return members;
+        }
         
+        // Use teamWorkload data
         const members = [];
-        dashboardData.teamSummary.forEach(team => {
+        teamWorkload.forEach(team => {
             if (Array.isArray(team.members)) {
                 team.members.forEach(member => {
                     members.push({
                         ...member,
-                        teamName: team.teamName,
-                        teamId: team.teamId
+                        teamName: team.name,
+                        teamId: team._id
                     });
                 });
             }
         });
         return members;
-    }, [dashboardData]);
+    }, [dashboardData, teamWorkload]);
 
     const handleReassignTasks = async () => {
         try {
@@ -47,6 +75,8 @@ const Dashboard = () => {
             const res = await DashboardService.reassignTasks();
             Toast("success", "Success", res.data.message || "Tasks reassigned successfully");
             await loadDashboard();
+            await loadActivityLogs();
+            await loadTeamWorkload();
         } catch (error) {
             const message = getErrorMessage(error);
             Toast("error", "Error", message);

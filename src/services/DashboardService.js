@@ -12,4 +12,7 @@ export default class DashboardService {
     static getActivityLogs = params =>
         privateAPI.get(API_URL.GET_ACTIVITY_LOGS_URL, {params});
 
+    static getTeamWorkloadSummary = () =>
+        privateAPI.get(API_URL.GET_ALL_TEAMS_URL);
+
 }
