@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {DATE_FORMAT, DATE_FORMAT_THREE, DATE_FORMAT_TWO, TIME_FORMAT} from "../constant/ConstantVariables.js";
+import {DATE_FORMAT, DATE_FORMAT_THREE, TIME_FORMAT} from "../constant/ConstantVariables.js";
 import utc from 'dayjs/plugin/utc';
 
 export const longToDate = date => {
