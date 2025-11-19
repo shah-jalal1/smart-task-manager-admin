@@ -11,7 +11,7 @@ import "./dashboard.scss";
 const {Title, Text} = Typography;
 
 const Dashboard = () => {
-    const {getDashboard, getActivityLogs, dashboardData, activityLogs, loading} = useContext(DashboardContext);
+    const {getDashboard, getActivityLogs, getTeamWorkloadSummary, dashboardData, activityLogs, teamWorkload, loading} = useContext(DashboardContext);
     const [reassigning, setReassigning] = useState(false);
 
     useEffect(() => {
@@ -24,11 +24,12 @@ const Dashboard = () => {
 
     // Flatten team members for the table
     const flattenedTeamMembers = React.useMemo(() => {
-        if (!dashboardData?.teamSummary) return [];
+        // Use teamWorkload from dashboard response
+        if (!teamWorkload || teamWorkload.length === 0) return [];
         
         const members = [];
-        dashboardData.teamSummary.forEach(team => {
-            if (Array.isArray(team.members)) {
+        teamWorkload.forEach(team => {
+            if (Array.isArray(team.members) && team.members.length > 0) {
                 team.members.forEach(member => {
                     members.push({
                         ...member,
@@ -39,7 +40,7 @@ const Dashboard = () => {
             }
         });
         return members;
-    }, [dashboardData]);
+    }, [teamWorkload]);
 
     const handleReassignTasks = async () => {
         try {

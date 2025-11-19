@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import React, {createContext, useState} from 'react';
 import {ACCESS_TOKEN, PROFILE} from "../constant/ConstantVariables.js";
 import AuthService from "../services/AuthService.js";
 import {getErrorMessage} from "../utils/GenericUtils.js";
@@ -74,8 +74,7 @@ const AuthContextProvider = ({children}) => {
         try {
             setLoading(true);
             const res = await AuthService.getMe();
-            // Handle backend response structure (res.data.user or res.data)
-            const userData = res.data?.user || res.data;
+            const userData = res.data.user || res.data;
             setProfile(userData);
             localStorage.setItem(PROFILE, JSON.stringify(userData));
         } catch (error) {

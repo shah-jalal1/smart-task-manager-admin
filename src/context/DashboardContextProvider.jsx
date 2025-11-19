@@ -8,6 +8,7 @@ export const DashboardContext = createContext("DashboardContext");
 const DashboardContextProvider = ({children}) => {
     const [dashboardData, setDashboardData] = useState(null);
     const [activityLogs, setActivityLogs] = useState([]);
+    const [teamWorkload, setTeamWorkload] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const getDashboard = async () => {
@@ -34,14 +35,25 @@ const DashboardContextProvider = ({children}) => {
             
             setDashboardData(dashboard);
             
-            // Set activity logs if included in dashboard response
+            // Set activity logs from dashboard response
             if (Array.isArray(dashboard.recentActivity)) {
                 setActivityLogs(dashboard.recentActivity);
+            } else {
+                setActivityLogs([]);
+            }
+            
+            // Set team workload from dashboard response
+            if (Array.isArray(dashboard.teamSummary)) {
+                setTeamWorkload(dashboard.teamSummary);
+            } else {
+                setTeamWorkload([]);
             }
         } catch (error) {
             const message = getErrorMessage(error);
             Toast("error", "Error", message);
             setDashboardData(null);
+            setActivityLogs([]);
+            setTeamWorkload([]);
         } finally {
             setLoading(false);
         }
@@ -62,13 +74,31 @@ const DashboardContextProvider = ({children}) => {
         }
     };
 
+    const getTeamWorkloadSummary = async () => {
+        try {
+            setLoading(true);
+            const res = await DashboardService.getTeamWorkloadSummary();
+            // Extract teams from response
+            const teams = Array.isArray(res.data) ? res.data : (res.data?.teams || []);
+            setTeamWorkload(teams);
+        } catch (error) {
+            const message = getErrorMessage(error);
+            Toast("error", "Error", message);
+            setTeamWorkload([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <DashboardContext.Provider
             value={{
                 getDashboard,
                 getActivityLogs,
+                getTeamWorkloadSummary,
                 dashboardData,
                 activityLogs,
+                teamWorkload,
                 loading,
             }}
         >

@@ -1,34 +1,25 @@
 import {useContext, useEffect, useState} from 'react';
-import {TaskContext} from "../../context/TaskContextProvider.jsx";
+import {TaskContext} from '../../context/TaskContextProvider.jsx';
 
 const useTaskList = () => {
-    const {taskList, getTaskList, totalTasks, loading} = useContext(TaskContext);
-    const [refresh, setRefresh] = useState(false);
+    const {getTaskList, taskList, totalTasks, loading} = useContext(TaskContext);
     const [filters, setFilters] = useState({
+        search: '',
         status: undefined,
         priority: undefined
     });
 
     useEffect(() => {
-        getAllTasks();
-    }, [refresh, filters]);
-
-    const getAllTasks = async () => {
-        const params = {};
-        if (filters.status) params.status = filters.status;
-        if (filters.priority) params.priority = filters.priority;
-        await getTaskList(params);
-    };
-
-    const handleFilterChange = (key, value) => {
-        setFilters(prev => ({
-            ...prev,
-            [key]: value
-        }));
-    };
+        refreshList();
+    }, []);
 
     const refreshList = () => {
-        setRefresh(!refresh);
+        getTaskList(filters);
+    };
+
+    const applyFilters = (newFilters) => {
+        setFilters(newFilters);
+        getTaskList(newFilters);
     };
 
     return {
@@ -36,8 +27,8 @@ const useTaskList = () => {
         taskList,
         totalTasks,
         refreshList,
-        filters,
-        handleFilterChange
+        applyFilters,
+        filters
     };
 };
 

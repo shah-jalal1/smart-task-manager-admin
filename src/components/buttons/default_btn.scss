@@ -3,12 +3,14 @@
 .custom-default-btn {
   background: $default-btn-bgc;
   color: $default-btn-color;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 6px 10px;
   font-weight: 600;
-  border-color: transparent;
+  border: none;
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
 
   .btn-title {
     font-weight: 400;
@@ -19,7 +21,8 @@
   &:hover {
     background: $default-btn-bgc !important;
     color: $default-btn-color !important;
-    border-color: transparent !important;
+    border: none !important;
+    opacity: 0.8;
   }
 
 }

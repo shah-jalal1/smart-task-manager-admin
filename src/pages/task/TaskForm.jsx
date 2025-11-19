@@ -20,7 +20,10 @@ const TaskForm = ({form, task, handleTaskSubmit, autoAssignTask}) => {
 
         return (
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <span>{member.name} ({member.role})</span>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <span>{member.name} ({member.role})</span>
+                    {member.teamName && <span style={{fontSize: '12px', color: '#888'}}>Team: {member.teamName}</span>}
+                </div>
                 <Tag color={isOverloaded ? 'red' : currentTasks === capacity ? 'orange' : 'green'}>
                     {currentTasks}/{capacity} tasks
                 </Tag>
@@ -29,6 +32,7 @@ const TaskForm = ({form, task, handleTaskSubmit, autoAssignTask}) => {
     };
 
     const selectedMemberId = Form.useWatch('assignedMember', form);
+    const selectedProjectId = Form.useWatch('project', form);
     const selectedMember = teamMembers.find(m => m._id === selectedMemberId);
     const showWarning = selectedMember && selectedMember.currentTasks >= selectedMember.capacity;
 
@@ -101,9 +105,10 @@ const TaskForm = ({form, task, handleTaskSubmit, autoAssignTask}) => {
                 name="assignedMember"
             >
                 <Select 
-                    placeholder="Select team member or leave unassigned"
+                    placeholder={selectedProjectId ? "Select team member or leave unassigned" : "Please select a project first"}
                     loading={loadingMembers}
                     allowClear
+                    disabled={!selectedProjectId}
                 >
                     {teamMembers.map(member => (
                         <Select.Option key={member._id} value={member._id}>

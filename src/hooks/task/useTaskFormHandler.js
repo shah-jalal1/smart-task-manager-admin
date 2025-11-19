@@ -1,8 +1,10 @@
-import {useEffect, useState} from "react";
-import TeamService from "../../services/TeamService.js";
+import {useEffect, useState} from 'react';
+import TeamService from '../../services/TeamService.js';
+import ProjectService from '../../services/ProjectService.js';
+import {getErrorMessage} from '../../utils/GenericUtils.js';
+import {Toast} from '../../components/common/Toast.jsx';
 
 const useTaskFormHandler = (form, task, handleTaskSubmit) => {
-    const [selectedProject, setSelectedProject] = useState(null);
     const [teamMembers, setTeamMembers] = useState([]);
     const [loadingMembers, setLoadingMembers] = useState(false);
 
@@ -12,56 +14,80 @@ const useTaskFormHandler = (form, task, handleTaskSubmit) => {
                 title: task.title,
                 description: task.description,
                 project: task.project?._id || task.project,
-                assignedMember: task.assignedMember?._id || task.assignedMember,
                 priority: task.priority,
                 status: task.status,
+                assignedMember: task.assignedMember?._id || task.assignedMember
             });
-            
-            if (task.project?.team) {
-                loadTeamMembers(task.project.team._id || task.project.team);
+
+            if (task.project) {
+                const projectId = task.project._id || task.project;
+                loadTeamMembers(projectId);
             }
         } else {
             form.resetFields();
+            setTeamMembers([]); // Clear members when form is reset for new task
         }
     }, [task, form]);
 
-    const loadTeamMembers = async (teamId) => {
-        if (!teamId) return;
-        
+    const loadTeamMembers = async (projectId) => {
         try {
             setLoadingMembers(true);
-            const res = await TeamService.getTeamWorkload(teamId);
-            setTeamMembers(res.data.members || []);
+            const project = await ProjectService.getProject(projectId);
+            const teamId = project.data?.team?._id || project.data?.team;
+            
+            if (teamId) {
+                const teamRes = await TeamService.getTeamWorkload(teamId);
+                // Handle response structure: { success: true, team: { _id, name, members: [...] } }
+                const members = teamRes.data?.team?.members || [];
+                setTeamMembers(members);
+            } else {
+                setTeamMembers([]);
+            }
         } catch (error) {
-            console.error("Error loading team members:", error);
+            const message = getErrorMessage(error);
+            Toast('error', 'Error', message);
+            setTeamMembers([]);
         } finally {
             setLoadingMembers(false);
         }
     };
 
-    const handleProjectChange = async (projectId, projects) => {
-        const project = projects.find(p => p._id === projectId);
-        setSelectedProject(project);
-        
-        if (project?.team) {
-            const teamId = project.team._id || project.team;
-            await loadTeamMembers(teamId);
-        } else {
-            setTeamMembers([]);
-        }
-        
+    const handleProjectChange = (projectId, projectList) => {
         form.setFieldValue('assignedMember', undefined);
+        setTeamMembers([]);
+        
+        const selectedProject = projectList.find(p => p._id === projectId);
+        if (selectedProject?.team) {
+            const teamId = selectedProject.team._id || selectedProject.team;
+            loadTeamMembersFromTeam(teamId);
+        }
     };
 
-    const onFinish = async (values) => {
-        await handleTaskSubmit(values);
+    const loadTeamMembersFromTeam = async (teamId) => {
+        try {
+            setLoadingMembers(true);
+            const teamRes = await TeamService.getTeamWorkload(teamId);
+            // Handle response structure: { success: true, team: { _id, name, members: [...] } }
+            const members = teamRes.data?.team?.members || [];
+            setTeamMembers(members);
+        } catch (error) {
+            const message = getErrorMessage(error);
+            Toast('error', 'Error', message);
+            setTeamMembers([]);
+        } finally {
+            setLoadingMembers(false);
+        }
+    };
+
+    const onFinish = (values) => {
+        handleTaskSubmit(values);
     };
 
     return {
         onFinish,
         handleProjectChange,
         teamMembers,
-        loadingMembers,
+        loadingMembers
     };
 };
 

@@ -1,20 +1,15 @@
-import {useContext, useEffect, useState} from 'react';
-import {TeamContext} from "../../context/TeamContextProvider.jsx";
+import {useContext, useEffect} from 'react';
+import {TeamContext} from '../../context/TeamContextProvider.jsx';
 
 const useTeamList = () => {
-    const {teamList, getTeamList, totalTeams, loading} = useContext(TeamContext);
-    const [refresh, setRefresh] = useState(false);
+    const {getTeamList, teamList, totalTeams, loading} = useContext(TeamContext);
 
     useEffect(() => {
-        getAllTeams();
-    }, [refresh]);
-
-    const getAllTeams = async () => {
-        await getTeamList();
-    };
+        refreshList();
+    }, []);
 
     const refreshList = () => {
-        setRefresh(!refresh);
+        getTeamList();
     };
 
     return {

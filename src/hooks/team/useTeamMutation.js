@@ -1,82 +1,52 @@
-import {getErrorMessage} from "../../utils/GenericUtils.js";
-import {useContext, useState} from "react";
-import {TeamContext} from "../../context/TeamContextProvider.jsx";
-import {Toast} from "../../components/common/Toast.jsx";
-import TeamService from "../../services/TeamService.js";
+import {useState} from 'react';
+import TeamService from '../../services/TeamService.js';
+import {Toast} from '../../components/common/Toast.jsx';
+import {getErrorMessage} from '../../utils/GenericUtils.js';
 
 const useTeamMutation = (refreshList) => {
-    const {getTeamList} = useContext(TeamContext);
-
     const [teamDrawerVisible, setTeamDrawerVisible] = useState(false);
     const [teamSubmitLoading, setTeamSubmitLoading] = useState(false);
     const [team, setTeam] = useState(null);
 
-    const openTeamDrawer = (team) => {
+    const openTeamDrawer = (teamData) => {
+        setTeam(teamData);
         setTeamDrawerVisible(true);
-        setTeam(team);
     };
 
     const closeTeamDrawer = () => {
-        setTeamDrawerVisible(false);
         setTeam(null);
+        setTeamDrawerVisible(false);
     };
 
-    const addTeam = async (data) => {
+    const handleTeamSubmit = async (values) => {
         try {
             setTeamSubmitLoading(true);
-            const res = await TeamService.createTeam(data);
-            Toast("success", "Created", "New team has been added successfully");
-            setTeamSubmitLoading(false);
-            return res.data;
-        } catch (error) {
-            setTeamSubmitLoading(false);
-            const message = getErrorMessage(error);
-            Toast("error", "Error", message);
-            return null;
-        }
-    };
-
-    const editTeam = async (data) => {
-        try {
-            setTeamSubmitLoading(true);
-            const res = await TeamService.updateTeam(team._id, data);
-            Toast("success", "Edited", "Team has been edited successfully");
-            setTeamSubmitLoading(false);
-            return res.data;
-        } catch (error) {
-            setTeamSubmitLoading(false);
-            const message = getErrorMessage(error);
-            Toast("error", "Error", message);
-            return null;
-        }
-    };
-
-    const deleteTeam = async (id) => {
-        try {
-            await TeamService.deleteTeam(id);
-            Toast("success", "Deleted", "Team has been deleted successfully");
+            if (team) {
+                await TeamService.updateTeam(team._id, values);
+                Toast('success', 'Success', 'Team updated successfully');
+            } else {
+                await TeamService.createTeam(values);
+                Toast('success', 'Success', 'Team created successfully');
+            }
+            closeTeamDrawer();
             refreshList();
         } catch (error) {
             const message = getErrorMessage(error);
-            Toast("error", "Error", message);
+            Toast('error', 'Error', message);
+        } finally {
+            setTeamSubmitLoading(false);
         }
     };
 
-    const handleTeamSubmit = async (data) => {
-        let res = null;
-
-        if (team) {
-            res = await editTeam(data);
-        } else {
-            res = await addTeam(data);
+    const deleteTeam = async (teamId) => {
+        try {
+            await TeamService.deleteTeam(teamId);
+            Toast('success', 'Success', 'Team deleted successfully');
+            refreshList();
+        } catch (error) {
+            const message = getErrorMessage(error);
+            Toast('error', 'Error', message);
         }
-
-        if (res) {
-            closeTeamDrawer();
-            getTeamList();
-        }
-
-        return res;
     };
 
     return {
@@ -86,7 +56,7 @@ const useTeamMutation = (refreshList) => {
         openTeamDrawer,
         closeTeamDrawer,
         handleTeamSubmit,
-        deleteTeam,
+        deleteTeam
     };
 };
 
